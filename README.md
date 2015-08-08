@@ -1,2 +1,2 @@
 # player-salary-tool
-Sample Web Application Demonstrating Full End to End Object Persistence, Manipulation, and Presentaiton
+Simple web application that demonstrates full end to end object persistence, manipulation, and presentation using a modern technology stack.
