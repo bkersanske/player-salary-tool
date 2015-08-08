@@ -16,19 +16,25 @@
 
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
           destroy-method="close">
+        <!-- LifeCycle is a class that we use to do programmatic logic at various
+            phases, its wired with an annotation -->
         <property name="driverClass" value="org.h2.Driver"/>
         <!-- Cache size is 64MB == 65536 KB-->
         <property name="jdbcUrl"
-                  value="jdbc:h2:file:../../../../../db/playersalarytooldb;LOCK_TIMEOUT=1200000;MVCC=TRUE;CACHE_SIZE=65536"/>
+                  value="jdbc:h2:file:~/playersalarytool/db/playersalarytooldb;LOCK_TIMEOUT=1200000;MVCC=TRUE;CACHE_SIZE=65536"/>
 
         <property name="initialPoolSize" value="3"/>
         <property name="minPoolSize" value="3"/>
         <property name="maxPoolSize" value="50"/>
+        <!-- <property name="timeout" value="0" / -->
         <property name="idleConnectionTestPeriod" value="200"/>
         <property name="acquireIncrement" value="1"/>
         <property name="maxStatements" value="0"/>
+        <!-- 0 means: statement caching is turned off. -->
         <property name="numHelperThreads" value="3"/>
         <property name="debugUnreturnedConnectionStackTraces" value="true"/>
+        <!--use this if we think we are having connection pool issues temp only-->
+        <!--property name="unreturnedConnectionTimeout" value="1200"/-->
     </bean>
 
     <!-- Flyway bean will migrate database as needed during application startup -->
@@ -39,11 +45,14 @@
     </bean>
 
     <!-- Enable use of @Transactional annotation -->
-    <tx:annotation-driven transaction-manager="transactionManager" mode="aspectj"/>
+    <tx:annotation-driven transaction-manager="transactionManager"
+                          mode="aspectj"/>
 
     <bean id="entityManagerFactory"
-          class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean"
+          class="com.bkersanske.playersalarytool.repositories.InterceptingLocalContainerEntityManagerFactoryBean"
           depends-on="flyway">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="packagesToScan" value="com.bkersanske.playersalarytool"/>
         <property name="jpaVendorAdapter">
             <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
                 <property name="database" value="H2"/>
@@ -62,6 +71,7 @@
     <!-- Scans for Repository objects and auto-creates them -->
     <jpa:repositories base-package="com.bkersanske.playersalarytool.repositories"
                       factory-class="com.bkersanske.playersalarytool.repositories.PlayerSalaryToolRepositoryFactoryBean"/>
+
 
     <context:component-scan
             base-package="com.bkersanske.playersalarytool.repositories,com.bkersanske.playersalarytool.domain"/>
