@@ -4,6 +4,7 @@ import com.bkersanske.playersalarytool.domain.Team;
 import com.bkersanske.playersalarytool.repositories.TeamRepository;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -11,6 +12,7 @@ import java.util.List;
  * @author bkersanske
  * @since 08/08/15 12:15
  */
+@Service
 public class TeamService implements ITeamService {
 
     @Autowired

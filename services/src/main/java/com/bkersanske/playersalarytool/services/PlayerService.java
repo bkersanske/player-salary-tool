@@ -24,4 +24,9 @@ public class PlayerService implements IPlayerService {
         return Lists.newArrayList(playerRepository.findAll());
     }
 
+    @Override
+    public Player retrievePlayer(String id) {
+        return playerRepository.findOne(id);
+    }
+
 }

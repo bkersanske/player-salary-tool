@@ -3,10 +3,8 @@ package com.bkersanske.playersalarytool.controllers;
 import com.bkersanske.playersalarytool.domain.Player;
 import com.bkersanske.playersalarytool.services.IPlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestClientException;
 
 import java.util.List;
 
@@ -25,4 +23,10 @@ public class PlayerController {
     public List<Player> getPlayers() {
         return playerService.retrievePlayers();
     }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public Player getPlayer(@PathVariable("id") String id) {
+        return playerService.retrievePlayer(id);
+    }
+
 }

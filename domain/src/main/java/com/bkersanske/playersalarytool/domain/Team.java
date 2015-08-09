@@ -1,5 +1,9 @@
 package com.bkersanske.playersalarytool.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -17,6 +21,8 @@ public class Team extends BaseObject {
 
     /* List of players that play on this team. */
     @OneToMany(mappedBy = "team")
+    @LazyCollection(LazyCollectionOption.TRUE)
+    @JsonIgnore
     private List<Player> players;
 
     public Team() {

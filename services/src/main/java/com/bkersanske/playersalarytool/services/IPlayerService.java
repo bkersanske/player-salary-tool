@@ -14,4 +14,6 @@ public interface IPlayerService {
 
     public List<Player> retrievePlayers();
 
+    public Player retrievePlayer(String id);
+
 }

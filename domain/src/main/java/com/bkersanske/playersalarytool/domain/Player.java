@@ -31,7 +31,7 @@ public class Player extends BaseObject {
     private Double salary;
 
     /* Team the player plays for. */
-    @OneToOne(optional = true)
+    @OneToOne
     @JoinColumn(name = "team_id", nullable = true)
     private Team team;
 
