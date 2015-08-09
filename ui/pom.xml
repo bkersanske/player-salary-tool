@@ -14,6 +14,10 @@
         <version>1.0</version>
     </parent>
 
+    <properties>
+        <handlebars.version>2.2.3</handlebars.version>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -73,6 +77,30 @@
                         <configuration>
                             <sassSourceDirectory>${project.basedir}/src/main/webapp</sassSourceDirectory>
                             <baseOutputDirectory>${project.basedir}/src/main/webapp/css</baseOutputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.github.jknack</groupId>
+                <artifactId>handlebars-maven-plugin</artifactId>
+                <version>${handlebars.version}</version>
+                <executions>
+                    <execution>
+                        <id>precompile</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>precompile</goal>
+                        </goals>
+                        <configuration>
+                            <output>${basedir}/src/main/webapp/backbone-implementation/js/compiled-templates.js</output>
+                            <prefix>${basedir}/src/main/webapp/templates</prefix>
+                            <suffix>.handlebars</suffix>
+                            <handlebarsJsFile>/handlebars-v1.3.0.js</handlebarsJsFile>
+                            <minimize>false</minimize>
+                            <runtime></runtime>
+                            <amd>false</amd>
+                            <encoding>UTF-8</encoding>
                         </configuration>
                     </execution>
                 </executions>
