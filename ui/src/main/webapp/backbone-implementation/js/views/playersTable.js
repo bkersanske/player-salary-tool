@@ -1,4 +1,4 @@
-define(['jquery', 'underscore', 'backbone', 'collections/playerCollection', 'templates'],
+define(['jquery', 'underscore', 'backbone', 'collections/playerCollection', 'datatables', 'templates'],
     function($, _, Backbone, PlayerCollection) {
 
         var PlayersTableView = Backbone.View.extend({
@@ -17,10 +17,10 @@ define(['jquery', 'underscore', 'backbone', 'collections/playerCollection', 'tem
             },
 
             handlePlayersLoaded: function() {
-                var that = this;
                 this.model.each(function(player) {
-                    $(that.el).find('#players-table tbody').append(Handlebars.templates.players_table_row(player.forTemplate()));
+                    $('#players-table tbody').append(Handlebars.templates.players_table_row(player.forTemplate()));
                 });
+                $('#players-table').DataTable();
             }
         });
 

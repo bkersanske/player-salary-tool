@@ -7,6 +7,7 @@ require.config({
     /* Configure shortcuts to the commonly used third party libraries. */
     paths: {
         jquery: '../../js/vendor/jquery-2.1.4.min',
+        datatables: '../../js/vendor/jquery.dataTables',
         underscore: '../../js/vendor/underscore-min',
         backbone: '../../js/vendor/backbone-min',
         modernizr: '../../js/vendor/modernizr-2.8.3.min',
@@ -18,9 +19,6 @@ require.config({
 
     /* Configure library dependencies and exported variables. */
     shim: {
-        'jquery': {
-            exports: '$'
-        },
         'bootstrap': {
             deps: ['jquery']
         },
