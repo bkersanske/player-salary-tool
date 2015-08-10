@@ -22,4 +22,14 @@ public class TeamService implements ITeamService {
     public List<Team> retrieveTeams() {
         return Lists.newArrayList(teamRepository.findAll());
     }
+
+    @Override
+    public Team retrieveTeam(String teamId) {
+        return teamRepository.findOne(teamId);
+    }
+
+    @Override
+    public void addTeam(Team team) {
+        teamRepository.save(team);
+    }
 }

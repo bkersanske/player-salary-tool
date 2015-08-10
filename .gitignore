@@ -36,6 +36,7 @@ compiled-templates.js
 *.ipr
 *.iws
 
+.DS_Store
 ## Plugin-specific files:
 
 # IntelliJ

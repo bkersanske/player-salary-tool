@@ -29,4 +29,9 @@ public class PlayerService implements IPlayerService {
         return playerRepository.findOne(id);
     }
 
+    @Override
+    public void addPlayer(Player player) {
+        playerRepository.save(player);
+    }
+
 }

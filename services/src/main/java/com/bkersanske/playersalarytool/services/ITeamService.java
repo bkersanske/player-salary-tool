@@ -13,4 +13,8 @@ import java.util.List;
 public interface ITeamService {
 
     public List<Team> retrieveTeams();
+
+    public Team retrieveTeam(String teamId);
+
+    public void addTeam(Team team);
 }
