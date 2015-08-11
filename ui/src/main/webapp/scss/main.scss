@@ -91,11 +91,48 @@ textarea {
 body {
   padding-top: 50px;
 }
+
+.undo-button {
+  opacity: 0;
+  img {
+    height: 16px;
+    width: 16px;
+  }
+}
+
 .starter-template {
   padding: 40px 15px;
   text-align: center;
 }
 
+#players-table {
+  border-collapse: collapse;
+}
+
+.red-border {
+  border: 1px solid #ff928d;
+}
+
+.green-background {
+  background-color: #a1ffb0;
+}
+
+#save-button-container {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.disabled-button {
+  cursor: default;
+  opacity: 0.5;
+  border: 1px solid #DEDEDE;
+}
+
+#save-button img {
+  height: 20px;
+  width: 20px;
+  margin-right: 5px;
+}
 
 
 /* ==========================================================================

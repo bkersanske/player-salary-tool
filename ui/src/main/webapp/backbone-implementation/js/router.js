@@ -3,7 +3,6 @@ define(['jquery', 'underscore', 'backbone', 'viewManager'],
 
         var AppRouter = Backbone.Router.extend({
             routes: {
-                'players/:id'   : 'player',
                 '*actions'      : 'defaultAction'
             }
         });
@@ -15,12 +14,6 @@ define(['jquery', 'underscore', 'backbone', 'viewManager'],
             router.on('route:defaultAction', function(actions) {
                 require(['views/playersTable'], function(PlayersTableView) {
                     ViewManager.create(appView, 'PlayersTableView', PlayersTableView);
-                });
-            });
-
-            router.on('route:player', function(playerId) {
-                require(['views/player'], function(PlayerView) {
-                    ViewManager.create(appView, 'PlayerView', PlayerView);
                 });
             });
 

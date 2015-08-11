@@ -1,9 +1,7 @@
-<tr>
-    <td>{{team.abbreviation}}</td>
-    <td>{{positionName}}</td>
-    <td>{{firstName}}</td>
-    <td>{{lastName}}</td>
-    <td>{{injuryStatus}}</td>
-    <td>{{formattedSalary}}</td>
-    <td>{{lastUpdated}}</td>
+<tr data-player-id="{{pid}}" {{#if isInjured}}class="red-border"{{/if}}>
+    <td data-attr="fn">{{fn}}</td>
+    <td data-attr="ln">{{ln}}</td>
+    <td data-attr="pn">{{pn}}</td>
+    <td data-attr="ug">{{upcomingGame}}</td>
+    <td data-attr="s"><span class="val">{{formattedSalary}}</span> <button class="undo-button"><img src="/images/iconmonstr-undo-4-icon.svg"/></button></td>
 </tr>
