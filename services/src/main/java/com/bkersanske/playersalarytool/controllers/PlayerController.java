@@ -40,4 +40,14 @@ public class PlayerController {
         return null;
     }
 
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    public PlayerDTO updatePlayer(@PathVariable(value = "id") String id, @RequestBody PlayerDTO player) {
+        Player dbPlayer = playerService.retrievePlayer(id);
+        if(dbPlayer != null) {
+            dbPlayer.setSalary(player.getS());
+            playerService.addPlayer(dbPlayer);
+        }
+        return new PlayerDTO(playerService.retrievePlayer(id));
+    }
+
 }

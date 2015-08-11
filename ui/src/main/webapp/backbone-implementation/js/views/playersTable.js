@@ -85,6 +85,7 @@ define(['jquery', 'underscore', 'backbone', 'collections/playerCollection', 'dat
                         if(player.get("tentativeSalary")) {
                             player.set("s", player.get("tentativeSalary"));
                             player.set("tentativeSalary", null);
+                            player.save();
                             var $playerSalaryCell = $('tr[data-player-id="' + player.get("pid") + '"] td[data-attr="s"]');
                             $playerSalaryCell.removeClass('green-background');
                             $playerSalaryCell.find('.undo-button').animate({opacity: 0});

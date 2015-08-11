@@ -5,31 +5,18 @@ define(['jquery', 'underscore', 'backbone', 'moment'],
             idAttribute: "pid",
             defaults: {
                 tentativeSalary: null,
-                ExceptionalMessages: [],
-                IsDisabledFromDrafting: null,
+                isDisabledFromDrafting: null,
                 atabbr: null,
                 atid: null,
                 fn: null,
-                fnu: null,
                 htabbr: null,
                 htid: null,
                 i: null,
                 ln: null,
-                lnu: null,
-                news: null,
-                opn: null,
-                or: null,
-                pcode: null,
                 pid: null,
                 pn: null,
-                posid: null,
-                pp: null,
-                ppg: null,
                 s: null,
-                slo: null,
-                swp: null,
-                tid: null,
-                tsid: null,
+                tid: null
             },
 
             forTemplate: function() {
@@ -38,6 +25,14 @@ define(['jquery', 'underscore', 'backbone', 'moment'],
                 j.formattedSalary = "$" + commaNumberFormatter(this.get("s"));
                 j.upcomingGame = this.get("atabbr") + " @ " + this.get("htabbr");
                 return j;
+            },
+
+            save: function(attrs, options) {
+                options = (options || {});
+                attrs = $.extend(true, {}, this.attributes, attrs);
+                delete attrs.tentativeSalary;
+                Backbone.Model.prototype.save.call(this, attrs, options);
+
             }
         });
 

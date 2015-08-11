@@ -14,9 +14,13 @@ public class PlayerDTO {
 
     public String atid;
 
+    public String i;
+
     public String atabbr;
 
     public String htid;
+
+    public String tid;
 
     public String htabbr;
 
@@ -30,11 +34,13 @@ public class PlayerDTO {
 
     public PlayerDTO(Player player) {
         this.pid = player.getId();
+        this.tid = player.getTeam().getId();
         this.isDisabledFromDrafting = player.getDisabledFromDrafting();
         this.atid = player.getNextGame().getAwayTeam().getId();
         this.atabbr = player.getNextGame().getAwayTeam().getAbbreviation();
         this.htid = player.getNextGame().getHomeTeam().getId();
         this.htabbr = player.getNextGame().getHomeTeam().getAbbreviation();
+        this.i = player.getInjuryStatus();
         this.fn = player.getFirstName();
         this.ln = player.getLastName();
         this.pn = player.getPositionName();
@@ -55,6 +61,22 @@ public class PlayerDTO {
 
     public void setIsDisabledFromDrafting(Boolean isDisabledFromDrafting) {
         this.isDisabledFromDrafting = isDisabledFromDrafting;
+    }
+
+    public String getTid() {
+        return tid;
+    }
+
+    public void setTid(String tid) {
+        this.tid = tid;
+    }
+
+    public String getI() {
+        return i;
+    }
+
+    public void setI(String i) {
+        this.i = i;
     }
 
     public String getAtid() {
