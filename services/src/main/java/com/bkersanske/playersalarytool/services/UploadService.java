@@ -1,6 +1,7 @@
 package com.bkersanske.playersalarytool.services;
 
 
+import com.bkersanske.playersalarytool.domain.Game;
 import com.bkersanske.playersalarytool.domain.Player;
 import com.bkersanske.playersalarytool.domain.Team;
 import org.json.simple.JSONArray;
@@ -13,6 +14,7 @@ import java.io.FileReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * @author bkersanske
@@ -27,6 +29,9 @@ public class UploadService implements IUploadService {
     @Autowired
     private IPlayerService playerService;
 
+    @Autowired
+    private IGameService gameService;
+
     public void processFileInputStream(InputStream inputStream) {
         JSONParser jsonParser = new JSONParser();
         try {
@@ -36,7 +41,7 @@ public class UploadService implements IUploadService {
             Iterator<JSONObject> iterator = playerList.iterator();
             while(iterator.hasNext()) {
                 JSONObject jsonPlayer = iterator.next();
-                String playerId = (String) jsonPlayer.get("pid");
+                String playerId = ((Long) jsonPlayer.get("pid")).toString();
                 if(playerService.retrievePlayer(playerId) == null) {
                     addPlayerFromJSON(jsonPlayer);
                     System.out.println("Added player with id " + playerId + " to the database.");
@@ -52,31 +57,42 @@ public class UploadService implements IUploadService {
     private void addPlayerFromJSON(JSONObject jsonPlayer) {
 
         Player player = new Player();
+        player.setId(((Long) jsonPlayer.get("pid")).toString());
         player.setFirstName((String) jsonPlayer.get("fn"));
         player.setLastName((String) jsonPlayer.get("ln"));
         player.setInjuryStatus((String)jsonPlayer.get("i"));
         player.setPositionName((String)jsonPlayer.get("pn"));
         player.setSalary(((Long)jsonPlayer.get("s")).doubleValue());
+        player.setDisabledFromDrafting((Boolean)jsonPlayer.get("IsDisabledFromDrafting"));
 
-        String homeTeamId = (String)jsonPlayer.get("htid");
+        String homeTeamId = ((Long)jsonPlayer.get("htid")).toString();
         Team homeTeam = teamService.retrieveTeam(homeTeamId);
         if(homeTeam == null) {
             homeTeam = addTeam(homeTeamId, (String)jsonPlayer.get("htabbr"));
         }
 
-        String awayTeamId = (String)jsonPlayer.get("atid");
+        String awayTeamId = ((Long)jsonPlayer.get("atid")).toString();
         Team awayTeam = teamService.retrieveTeam(awayTeamId);
         if(awayTeam == null) {
             awayTeam = addTeam(awayTeamId, (String)jsonPlayer.get("atabbr"));
         }
 
-        String playerTeamId = (String)jsonPlayer.get("tid");
+        String playerTeamId = ((Long)jsonPlayer.get("tid")).toString();
         if(playerTeamId.equals(awayTeam.getId())) {
             player.setTeam(awayTeam);
         } else if(playerTeamId.equals(homeTeam.getId())){
             player.setTeam(homeTeam);
         }
 
+        List<Game> games = gameService.retrieveGamesByHomeTeamAndAwayTeam(homeTeam, awayTeam);
+        if(games == null || games.size() == 0) {
+            Game game = new Game();
+            game.setHomeTeam(homeTeam);
+            game.setAwayTeam(awayTeam);
+            gameService.addGame(game);
+        }
+
+        player.setNextGame(gameService.retrieveGamesByHomeTeamAndAwayTeam(homeTeam, awayTeam).get(0));
         playerService.addPlayer(player);
     }
 

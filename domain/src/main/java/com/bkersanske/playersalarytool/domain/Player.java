@@ -22,6 +22,9 @@ public class Player extends BaseObject {
     @Column(name = "position_name")
     private String positionName;
 
+    @Column(name = "disabled_from_drafting")
+    private Boolean disabledFromDrafting;
+
     /* Injury statuses if any. */
     @Column(name = "injury_status")
     private String injuryStatus;
@@ -34,6 +37,10 @@ public class Player extends BaseObject {
     @OneToOne
     @JoinColumn(name = "team_id", nullable = true)
     private Team team;
+
+    @OneToOne
+    @JoinColumn(name = "next_game_id", nullable = true)
+    private Game nextGame;
 
     public Player() {
     }
@@ -94,5 +101,21 @@ public class Player extends BaseObject {
 
     public void setSalary(Double salary) {
         this.salary = salary;
+    }
+
+    public Boolean getDisabledFromDrafting() {
+        return disabledFromDrafting;
+    }
+
+    public void setDisabledFromDrafting(Boolean disabledFromDrafting) {
+        this.disabledFromDrafting = disabledFromDrafting;
+    }
+
+    public Game getNextGame() {
+        return nextGame;
+    }
+
+    public void setNextGame(Game nextGame) {
+        this.nextGame = nextGame;
     }
 }

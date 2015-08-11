@@ -3,7 +3,7 @@ define(['jquery', 'underscore', 'backbone', 'models/player'],
 
         var PlayerCollection = Backbone.Collection.extend({
             model: Player,
-            url: '/json/playerData.json',
+            url: '/api/players',
 
             parse: function(response, options) {
                 // ugly workaround due to the fact that the playerData.json contains multiple root properties and we only care about one
