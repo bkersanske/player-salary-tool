@@ -73,7 +73,7 @@ define(['jquery', 'underscore', 'backbone', 'collections/playerCollection', 'dat
                 var player = this.model.get(playerId);
                 player.set("tentativeSalary", null);
                 var $playerSalaryCell = $('tr[data-player-id="' + playerId + '"] td[data-attr="s"]');
-                $playerSalaryCell.find('input').replaceWith('<span class="val">$' + commaNumberFormatter(player.get("s")) + '</span>');
+                $playerSalaryCell.find('span.val').replaceWith('<span class="val">$' + commaNumberFormatter(player.get("s")) + '</span>');
                 $playerSalaryCell.removeClass('green-background');
                 $playerSalaryCell.find('.undo-button').animate({opacity: 0});
             },
@@ -93,7 +93,9 @@ define(['jquery', 'underscore', 'backbone', 'collections/playerCollection', 'dat
                     });
                     $(evt.target).addClass('disabled-button');
                 }
-                console.log(changedPlayers);
+                if(changedPlayers.length) {
+                    console.log(changedPlayers);
+                }
             }
         });
 
